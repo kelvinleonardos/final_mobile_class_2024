@@ -7,14 +7,14 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80),
+        preferredSize: const Size.fromHeight(100),
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(30.0),
           child: AppBar(
             title: const Text('Hai, Kelvin!'),
             actions: [
               CircleAvatar(
-                child: FlutterLogo(size: 20),
+                child: FlutterLogo(size: 30),
               )
             ]
           ),
@@ -37,11 +37,11 @@ class HomePage extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.all(20),
             child: Row(
-              children: [
-                scrollview(),
-                scrollview(),
-                scrollview(),
-              ],
+              children: List<scrollview>.generate(
+                10, (index) {
+                  return scrollview(index: index + 450,);
+                }
+              )
             ),
           )
         ],
@@ -52,19 +52,28 @@ class HomePage extends StatelessWidget {
 
 class scrollview extends StatelessWidget {
   const scrollview({
-    super.key,
+    super.key, required this.index,
   });
+
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.red,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(30),
       ),
       width: 300,
       height: 500,
       margin: const EdgeInsets.only(right: 10),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(30),
+        child: Image.network(
+          'https://picsum.photos/id/' + index.toString() + '/200/300',
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
 }
